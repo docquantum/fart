@@ -1,0 +1,11 @@
+option('enable-tests',
+  type: 'boolean',
+  value: false,
+  description: 'Enables tests.'
+)
+
+option('enable-docs',
+  type: 'boolean',
+  value: false,
+  description: 'Enables docs.'
+)
