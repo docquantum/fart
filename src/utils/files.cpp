@@ -4,47 +4,14 @@
 
 namespace Utils::Files
 {
-    template <>
-    std::string* readFileAsLines<std::string*>(const std::string& fileName)
+    std::vector<std::string> readFileAsLines(const std::string& filename)
     {
-        std::ifstream file(fileName);
+        std::ifstream file(filename);
         
         if(!file.is_open())
             throw "File not found!";
         
-        int count = 0;
-        std::string line;
-        while(std::getline(file, line))
-        {
-            if(line.empty())
-                continue;
-            count++;
-        }
-
-        std::string* lines = new std::string[count];
-        
-        count = 0;
-        while(std::getline(file, line))
-        {
-            if(line.empty())
-                continue;
-            lines[count] = line;
-            count++;
-        }
-        file.close();
-
-        return lines;
-    }
-
-    template<>
-    std::vector<std::string> readFileAsLines<std::vector<std::string>>(const std::string& fileName)
-    {
-        std::ifstream file(fileName);
         std::vector<std::string> lines = std::vector<std::string>();
-        
-        if(!file.is_open())
-            throw "File not found!";
-        
         lines.reserve(1000);
         
         int count = 0;
@@ -59,5 +26,21 @@ namespace Utils::Files
         file.close();
         lines.resize(count);
         return lines;
+    }
+
+    void writeFileFromLines(const std::vector<std::string>& lines, const std::string& filename)
+    {
+        std::ofstream file(filename);
+
+        if(!file.is_open())
+            throw "File not able to be oppend!";
+        else if(lines.size() == 0)
+            throw "Input is of length 0!";
+        
+        for (auto &&l : lines)
+        {
+            file << l;
+        }
+        file.close();
     }
 }

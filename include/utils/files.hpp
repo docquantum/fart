@@ -12,14 +12,20 @@
 namespace Utils::Files
 {
     /**
-     * @brief Reads in the file as a set of lines, either array or vector. Also removes all empty lines.
+     * @brief Reads in the file as a set of lines. Also removes all empty lines.
      * 
-     * @tparam T 
-     * @param fileName 
-     * @return T 
+     * @param filename 
+     * @return std::vector<std::string> 
      */
-    template <typename T>
-    auto readFileAsLines(const std::string& fileName) -> T;
+    auto readFileAsLines(const std::string& filename) -> std::vector<std::string>;
+
+    /**
+     * @brief Writes the file from a set of lines, either array or vector.
+     * 
+     * @param lines 
+     * @param filename 
+     */
+    void writeFileFromLines(const std::vector<std::string>& lines, const std::string& filename);
 } // namespace Utils::Files
 
 #endif
