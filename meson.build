@@ -25,7 +25,8 @@ fart_bin_deps = [
 ]
 
 fart_bin_dep_libs = [
-    img_lib
+    img_lib,
+    utils_lib
 ]
 
 fart_bin = executable('fart',
