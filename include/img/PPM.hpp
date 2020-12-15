@@ -26,12 +26,12 @@ public:
     PPM(uint16_t height, uint16_t width, Pixel** data);
     ~PPM();
 
-    uint16_t getHeight();
-    uint16_t getWidth();
-    Pixel** getData();
+    auto getHeight() -> uint16_t;
+    auto getWidth() -> uint16_t;
+    auto getData() -> Pixel**;
     void setData(Pixel** data);
     void setPixel(uint16_t x, uint16_t y, uint8_t r, uint8_t g, uint8_t b);
-    std::string asText();
+    auto asText() -> std::string;
 };
 
 #endif
