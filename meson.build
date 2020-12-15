@@ -4,7 +4,7 @@ project('fart', 'cpp',
     version: '0.alpha',
     license: 'GPL3+',
     meson_version : '>= 0.50.0',
-    default_options : [ 'warning_level=3', 'cpp_std=c++11' ]
+    default_options : [ 'warning_level=3', 'cpp_std=c++17' ]
 )
 
 # Variables tracking sources and libraries
@@ -44,3 +44,35 @@ endif
 if get_option('enable-docs')
     subdir('docs')
 endif
+
+# This adds the clang format file to the build directory
+configure_file(
+    input: '.clang-format',
+    output: '.cl0ang-format',
+	copy: true
+)
+run_target('format', command: [
+    'clang-format',
+    '-i',
+    '-style=file',
+    project_sources,
+    project_test_sources,
+    project_header_files
+])
+
+regex = '^((?!(third_party|tests|benchmarks|gtest)).)*$'
+configure_file(
+    input : '.clang-tidy',
+    output : '.clang-tidy',
+    copy : true
+)
+run_target('tidy', command: [
+    'run-clang-tidy.py',
+    '-fix',
+    '-j' ,
+    '8',
+    'files',
+    regex ,
+    '-format',
+    '-p=' + meson.build_root()
+])
